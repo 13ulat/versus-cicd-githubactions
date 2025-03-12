@@ -17,7 +17,7 @@ env:
   ENVIRONMENT_STAGE: ${{ (github.ref == 'refs/heads/main') && 'production' || (github.ref == 'refs/heads/staging') && 'staging' || (github.ref == 'refs/heads/feature/**') && 'dev' }}
 jobs:
   app-build-and-deploy:
-    environment: ${{ env.ENVIRONMENT_STAGE }}
+    environment: ${{ (github.ref == 'refs/heads/main') && 'production' || (github.ref == 'refs/heads/staging') && 'staging' || (github.ref == 'refs/heads/feature/**') && 'dev' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
