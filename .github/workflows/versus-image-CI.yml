@@ -14,7 +14,7 @@ permissions:
   id-token: write
 env:
   AWS_REGION: "us-east-1"
-  ENVIRONMENT_STAGE: ${{ (github.ref == 'refs/heads/main') && 'production') || (github.ref == 'refs/heads/staging') && 'staging' || (github.ref == 'refs/heads/feature/**' && 'dev')}}
+  ENVIRONMENT_STAGE: ${{ (github.ref == 'refs/heads/main') && 'production' || (github.ref == 'refs/heads/staging') && 'staging' || (github.ref == 'refs/heads/feature/**') && 'dev' }}
 jobs:
   app-build-and-deploy:
     environment: ${{ env.ENVIRONMENT_STAGE }}
