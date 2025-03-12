@@ -7,7 +7,7 @@ on:
       - staging
       - main
 
-permission:
+permissions:
   contents: read
   id-token: write
 env:
