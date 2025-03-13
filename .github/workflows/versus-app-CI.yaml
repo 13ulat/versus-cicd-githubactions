@@ -50,5 +50,14 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      - name: Install Kops
+        run: |
+          KOPS_VERSION="1.28.0" # Change to the latest stable version if needed
+          curl -LO https://github.com/kubernetes/kops/releases/download/v$KOPS_VERSION/kops-linux-amd64
+          chmod +x kops-linux-amd64
+          sudo mv kops-linux-amd64 /usr/local/bin/kops
+      - name: Verify Kops Installation
+        run: |
+          kops version
       - name: Login to EKS - update kubeconfig
         run: kops export kubeconfig --name versus.k8s.local --state 312-k8s-kops-state-302263047061  --admin
