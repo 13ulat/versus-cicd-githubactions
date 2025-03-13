@@ -51,4 +51,4 @@ jobs:
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
       - name: Login to EKS - update kubeconfig
-        run: aws eks update-kubeconfig --name versus.k8s.local --region $AWS_REGION
+        run: kops export kubeconfig --name versus.k8s.local --state 312-k8s-kops-state-302263047061  --admin
