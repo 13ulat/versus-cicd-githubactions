@@ -30,7 +30,7 @@ jobs:
         if: github.ref != 'refs/heads/main'
         name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build, tag, and push backend image to Amazon ECR
         if: github.ref != 'refs/heads/main'
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -40,3 +40,15 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      - name: Build, tag, and push backend image to Amazon ECR
+        if: github.ref != 'refs/heads/main'
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: versus-frontend
+          IMAGE_TAG: ${{ github.sha }}
+        working-directory: ./frontend
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      - name: Login to EKS - update kubeconfig
+        run: aws eks update-kubeconfig --name versus.k8s.local --region $AWS_REGION
