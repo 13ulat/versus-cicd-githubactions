@@ -60,4 +60,4 @@ jobs:
         run: |
           kops version
       - name: Login to EKS - update kubeconfig
-        run: kops export kubeconfig --name versus.k8s.local --state 312-k8s-kops-state-302263047061  --admin
+        run: kops export kubeconfig --name versus.k8s.local --state eks-bulat-state-bucket-dev  --admin
